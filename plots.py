@@ -87,7 +87,7 @@ def remove_UC_ammonia(listroutes):
             list_results.append(route)
     return list_results
 
-def figure1(df_byID,colours = dict_colours,markers = dict_markers,filename='Figure1'):
+def figure5(df_byID,colours = dict_colours,markers = dict_markers,filename='Figure1'):
     
     fig, ax = plt.subplots(2,2,gridspec_kw={'width_ratios': [4, 1],'height_ratios':[1,4]},figsize=(12,10))
     labels=[]
@@ -580,7 +580,7 @@ def distanceplot(models,einfra,h2prodid,h2infraid,bounds=True):
         plt.ylim(bottom=1.5,top=3.5)
     plt.savefig(os.getcwd()+'\\Figures\\SI_fig_'+h2prodid+'_distanceplot.svg', format='svg',dpi=600)
     plt.show()
-    print(mean,lowSD,highSD)
+    #print(mean,lowSD,highSD)
     
 
     
