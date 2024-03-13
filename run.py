@@ -130,7 +130,9 @@ def distancefigure(run,bounds=False):
     distanceplot(models,'UKCS','AHF','LRTI', bounds=bounds)
     distanceplot(models,'Offshore Wind Fixed','DPF','DPFI',bounds=bounds)
     distanceplot(models,'Offshore Wind Fixed','CPF','LRPI',bounds=bounds)
-    
+
+
+#run model, distance offshore (km), number of iterations, data inputs - dfs uses data input provided in data file
 basemodel = runmodel(150, 1500,dfs,printvalues=True)
 results = clean_savemeanstd(basemodel)
 figure5(results)
