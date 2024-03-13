@@ -437,9 +437,9 @@ def impactofoffshore_tvector(model,filename='fig7',electrometh1 = 'PEM',smrmeth=
         ax2.set_axisbelow(True)
         ax1.set_axisbelow(True)
         ax2.xaxis.grid()
-        ax1.set_ylabel('')
+        #ax1.set_ylabel('')
         ax1.tick_params(labelleft=False)
-        plt.ylabel('')        
+        #plt.ylabel('')        
         plt.legend(handles=[patch1,patch2,patch3],framealpha=1)
         plt.savefig(os.getcwd()+'\\Figures\\'+filename+'_'+name+meth+variable+'.svg', format='svg',dpi=600)
         plt.show()
@@ -524,9 +524,9 @@ def impactofoffshore_infra(model,prodmethod='PEM',variable = 'CO2e',filename='fi
             ax1.axvline(x=12,linestyle='dashed',color="grey")
             ax1.set_xlim(defaultxlim)
         ax2.xaxis.grid()
-        ax1.set_ylabel('')
+        #ax1.set_ylabel('')
         plt.legend(handles=[patch1,patch2,patch3],framealpha=1)
-        ax1.tick_params(labelleft=False)
+        #ax1.tick_params(labelleft=False)
         plt.savefig(os.getcwd()+'\\Figures\\'+filename+name+prodmethod+variable+'.svg', format='svg',dpi=600)
         plt.show()
         
@@ -545,8 +545,8 @@ def distanceplot(models,einfra,h2prodid,h2infraid,bounds=True):
     for name in list_tinfra:
         distances = []
         mean = []
-        lowSD = []
-        highSD = []
+        low = []
+        high = []
         for distance in models:
             df = models[distance].loc[(models[distance]['Einfra']==einfra)&
                                       (models[distance]['h2 prod']==h2prodid)&
@@ -554,33 +554,33 @@ def distanceplot(models,einfra,h2prodid,h2infraid,bounds=True):
                                       (models[distance]['tinfra']==name)]
             distances.append(distance)
             mean.append(df['CO2e'].mean())
-            lowSD.append(df['CO2e'].quantile(0.05))
-            highSD.append(df['CO2e'].quantile(0.95))
+            low.append(df['CO2e'].quantile(0.05))
+            high.append(df['CO2e'].quantile(0.95))
         
         ax.scatter(distances, mean,marker='.',s=10,color = colours[name],alpha=0.2,label=name)
         z = np.polyfit(distances, mean, 1)
         p = np.poly1d(z)
         ax.plot(distances,p(distances),"-",color = colours[name],lw=1)
         if bounds == True:
-            z = np.polyfit(distances, lowSD, 1)
+            z = np.polyfit(distances, low, 1)
             p = np.poly1d(z)
             #ax.plot(distances,p(distances),":",color = colours[name],lw=0.5)
-            z = np.polyfit(distances, highSD, 1)
+            z = np.polyfit(distances, high, 1)
             p = np.poly1d(z)
             #ax.plot(distances,p(distances),":",color = colours[name],lw=0.5)
-            ax.fill_between(distances, lowSD, highSD, alpha=0.1, edgecolor=colours[name], facecolor=colours[name])
+            ax.fill_between(distances, low, high, alpha=0.1, edgecolor=colours[name], facecolor=colours[name])
     #ax.fill_between(distances, 0, 2, alpha=0.1, edgecolor=None, facecolor='blue')
     plt.xlabel('Distance from shore (km)')
     plt.ylabel('Emissions Intensity (kg CO\u2082e/kg H\u2082e)')
     #plt.legend()
-    plt.xlim(left=10,right=730)
+    plt.xlim(left=10,right=750)
     titles = {'CPF':'A. Centralised PEM Electrolysis, Fixed Offshore Wind','DPF':'B. Decentralised PEM Electrolysis, Fixed Offshore Wind','AHF':'C. Centralised Autothermal Reforming with CCS, Natural Gas (UKCS)'}
     plt.title(titles[h2prodid])
     if h2prodid in ('CPF','DPF') and bounds == False:
         plt.ylim(bottom=1.5,top=3.5)
     plt.savefig(os.getcwd()+'\\Figures\\SI_fig_'+h2prodid+'_distanceplot.svg', format='svg',dpi=600)
     plt.show()
-    #print(mean,lowSD,highSD)
+    #print(mean,low,high)
     
 
     
