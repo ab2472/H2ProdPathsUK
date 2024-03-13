@@ -290,7 +290,6 @@ class routeoptions():
         for stage in self.route_path():
             CO2e_bySP[stage] = {}
             CO2e_bySP[stage]["emb_kgCO2e"] = stage._CO2e_kgH2_ex_energy()['emb_kgCO2e']*self.coefficients[stage]
-            print(stage,stage._CO2e_kgH2_ex_energy()['emb_kgCO2e'])
             CO2e_bySP[stage]["process_kgCO2e"] = stage._CO2e_kgH2_ex_energy()['process_kgCO2e']*self.coefficients[stage]
             CO2e_bySP[stage]["OM_kgCO2e"] = stage._CO2e_kgH2_ex_energy()['OM_kgCO2e']*self.coefficients[stage]
             CO2e_bySP[stage]["H2 emissions"] = self.H2_emissions[stage]
