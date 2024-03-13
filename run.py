@@ -118,7 +118,7 @@ def createfigures6_9(model):
 """Create Distance Figures (and run data if needed)"""    
 def distancefigure(run,bounds=False):
     models = {}
-    for distance in range (10,750,20):
+    for distance in range (10,770,20):
         if run == True:
             h2prod = h2prod_uncertainty_df.loc[h2prod_uncertainty_df['Process ID'].isin(['CPF','DPF','AHF'])].copy()
             h2infra = h2infra_uncertainty_df.loc[h2infra_uncertainty_df['Process ID'].isin(['LRPI','DPFI','LRTI'])].copy()
