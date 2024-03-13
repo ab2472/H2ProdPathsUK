@@ -15,7 +15,7 @@ start1 = timeit.default_timer()
 """Define the input data"""
 with open('Data/DataInputs.xlsx', "rb") as f:
     file_io_obj = io.BytesIO(f.read())
-#xls = pd.ExcelFile('Data/uncertainty/SI_3.xlsx')
+
 tinfra_uncertainty_df = pd.read_excel(file_io_obj,'4. Transmission Infrastructure')
 tvector_uncertainty_df = pd.read_excel(file_io_obj,'5. Transmission Vector')
 h2prod_uncertainty_df = pd.read_excel(file_io_obj,'2. H2 Production Methods')
@@ -287,7 +287,7 @@ def save_data(list1,filename):
     with open(os.getcwd()+'\\Pickle Results\\'+filename,'wb') as outp:
         pickle.dump(list1,outp,-1)
 
-def runmodel(distance,n,dataframes,**kwargs):
+def runmodel(distance,n,dataframes,printvalues=False):
     createpaths(distance,n,dataframes)
     base_model = run()
     if base_model == False:
@@ -296,37 +296,38 @@ def runmodel(distance,n,dataframes,**kwargs):
     else:
         str1 = 'Distance_'+str(distance)+'_Num_Iterations_'+str(n)+'_'+datetime.today().strftime("%d%m%Y")+'.pkl'
         save_data(base_model,str1)
-        #print(len(base_model))
-        """electricity_routes=0
-        NG_routes=0
-        offshore=0
-        onshore=0
-        emin=0
-        emax=100
-        CO2emin = 5
-        CO2emax=5
-        for route in routeoptions._routeoptions:
-            if route.h2_prod.location =="Onshore":
-                onshore+=1
-            if route.E_type == "E":
-                electricity_routes +=1
-            if route.E_type == "NG":
-                NG_routes += 1
-            if route.energy_in < emin:
-                emin = route.energy_in
-            if route.energy_in > emax:
-                emax = route.energy_in   
-            if route.CO2e < CO2emin:
-                CO2emin = route.CO2e
-            if route.CO2e > CO2emax:
-                CO2emax = route.CO2e
-    print("No. onshore routes: "+ str(onshore))
-    print("No. E routes: "+ str(electricity_routes))
-    print("No. NG routes: "+str( NG_routes))
-    print("Min Energy: "+str(emin)+" kWh/kg H2")
-    print("Max Energy: "+str(emax)+" kWh/kg H2")
-    print("Min CO2e: "+str(CO2emin)+" kgCO2e/kg H2")
-    print("Max CO2e: "+str(CO2emax)+" kgCO2e/kg H2")"""
+        if printvalues ==True:
+            print("Number of Pathways: "+ len(base_model))
+            electricity_routes=0
+            NG_routes=0
+            offshore=0
+            onshore=0
+            emin=0
+            emax=100
+            CO2emin = 5
+            CO2emax=5
+            for route in routeoptions._routeoptions:
+                if route.h2_prod.location =="Onshore":
+                    onshore+=1
+                if route.E_type == "E":
+                    electricity_routes +=1
+                if route.E_type == "NG":
+                    NG_routes += 1
+                if route.energy_in < emin:
+                    emin = route.energy_in
+                if route.energy_in > emax:
+                    emax = route.energy_in   
+                if route.CO2e < CO2emin:
+                    CO2emin = route.CO2e
+                if route.CO2e > CO2emax:
+                    CO2emax = route.CO2e
+        print("No. onshore routes: "+ str(onshore))
+        print("No. E routes: "+ str(electricity_routes))
+        print("No. NG routes: "+str( NG_routes))
+        print("Min Energy: "+str(emin)+" kWh/kg H2")
+        print("Max Energy: "+str(emax)+" kWh/kg H2")
+        print("Min CO2e: "+str(CO2emin)+" kgCO2e/kg H2")
+        print("Max CO2e: "+str(CO2emax)+" kgCO2e/kg H2")
     return base_model
     
 
