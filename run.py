@@ -105,15 +105,15 @@ def clean_savemeanstd(results,ammonia=True,legendforplots = 'Legend', save=True,
 """Create Figures for Paper - move to plot"""
 def createfigures6_9(model):
     for prod in ('Alkaline','PEM','ATR','lowsmr','highsmr'):
-        impactofoffshore_infra(basemodel1,prodmethod = prod)
-        impactofoffshore_infra(basemodel1,prodmethod = prod,variable='Energy In')
-    impactofoffshore_tvector(basemodel1,electrometh1 = 'PEM',smrmeth='ATR')
-    impactofoffshore_tvector(basemodel1,electrometh1 = 'PEM',smrmeth='ATR',variable='Energy In')
-    impactofoffshore_tvector(basemodel1,electrometh1 = 'Alkaline',smrmeth='highsmr')
-    impactofoffshore_tvector(basemodel1,electrometh1 = 'Alkaline',smrmeth='highsmr',variable='Energy In')
-    impactofoffshore_tvector(basemodel1,electrometh1 = 'Alkaline',smrmeth='lowsmr')
-    impactofoffshore_tvector(basemodel1,electrometh1 = 'Alkaline',smrmeth='lowsmr',variable='Energy In')
-    combinedplot(basemodel1,'ID')
+        impactofoffshore_infra(model,prodmethod = prod)
+        impactofoffshore_infra(model,prodmethod = prod,variable='Energy In')
+    impactofoffshore_tvector(model,electrometh1 = 'PEM',smrmeth='ATR')
+    impactofoffshore_tvector(model,electrometh1 = 'PEM',smrmeth='ATR',variable='Energy In')
+    impactofoffshore_tvector(model,electrometh1 = 'Alkaline',smrmeth='highsmr')
+    impactofoffshore_tvector(model,electrometh1 = 'Alkaline',smrmeth='highsmr',variable='Energy In')
+    impactofoffshore_tvector(model,electrometh1 = 'Alkaline',smrmeth='lowsmr')
+    impactofoffshore_tvector(model,electrometh1 = 'Alkaline',smrmeth='lowsmr',variable='Energy In')
+    combinedplot(basemodel1,'Legend')
 
 """Create Distance Figures (and run data if needed)"""    
 def distancefigure(run,bounds=False):
@@ -131,11 +131,10 @@ def distancefigure(run,bounds=False):
     distanceplot(models,'Offshore Wind Fixed','DPF','DPFI',bounds=bounds)
     distanceplot(models,'Offshore Wind Fixed','CPF','LRPI',bounds=bounds)
     
-basemodel = runmodel(150, 1500,dfs)
-#results = clean_savemeanstd(basemodel1)
-#combinedplot(basemodel1,'Legend')
-#createfigures6_9(basemodel)
-#distancefigure(True,bounds=True)
+basemodel = runmodel(150, 1500,dfs,printvalues=True)
+results = clean_savemeanstd(basemodel1)
+createfigures6_9(basemodel)
+distancefigure(True,bounds=True)
 
 
 
