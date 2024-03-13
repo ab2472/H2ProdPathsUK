@@ -132,7 +132,8 @@ def distancefigure(run,bounds=False):
     distanceplot(models,'Offshore Wind Fixed','CPF','LRPI',bounds=bounds)
     
 basemodel = runmodel(150, 1500,dfs,printvalues=True)
-results = clean_savemeanstd(basemodel1)
+results = clean_savemeanstd(basemodel)
+figure5(results)
 createfigures6_9(basemodel)
 distancefigure(True,bounds=True)
 
