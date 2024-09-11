@@ -4,7 +4,7 @@ by
 Alice Bennett,
 André Cabrera Serrenho,
 
-This paper has been submitted for publication in Energy.
+This paper has been submitted for publication in the International Journal of Hydrogen Energy.
 
 ## Abstract
 
