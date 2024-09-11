@@ -266,7 +266,7 @@ def stages_energy(model,variable):
 
     return LC_results
 
-def combinedplot(model,variable,filename='figure6'):
+def combinedplot(model,variable='Legend',filename='fig6'):
     #variable = groupby legend or ID
     LC_CO2e = lifecyclestages_percent(model,variable)
     LC_Energy = lifecyclestages_energy(model,variable)
@@ -406,10 +406,10 @@ def SI_fig5_6(df_byID,colours = dict_colours,markers = dict_markers,filename='Fi
     axsLeft[1,1].set_ylim(axsLeft[1,0].get_ylim())
     axsLeft[0,1].remove()
 
-    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig5a.tiff', format='tiff',dpi=1200)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig5.tiff', format='tiff',dpi=1200)
     plt.show()
 
-    fig,axsRight = plt.subplots(2, 2, figsize=[11,10],sharex=True,sharey=True,gridspec_kw={'wspace': 0.05, 'hspace': 0.05},layout='tight')
+    fig,axsRight = plt.subplots(2, 2, figsize=[11,10],sharex=True,sharey=True,gridspec_kw={'wspace': 0.05, 'hspace': 0.05})
 
     axes={'Offshore Wind Floating, Offshore, Tanker':axsRight[0,1], 
           'Offshore Wind Fixed, Offshore, Tanker':axsRight[0,1], 
@@ -447,7 +447,7 @@ def SI_fig5_6(df_byID,colours = dict_colours,markers = dict_markers,filename='Fi
     axsRight[1,0].set_xlabel('Energy Return On Investment \n(Energy Delivered/Energy In)')
     axsRight[1,0].set_ylabel('Emissions Intensity (kg CO\u2082e/kg H\u2082)')
 
-    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig5b.tiff', format='tiff',dpi=1200)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig6.tiff', format='tiff',dpi=1200)
     plt.show()
 
 def figure_5_paper(df_byID,colours = dict_colours,markers = dict_markers,filename='Figure1'):
@@ -470,7 +470,7 @@ def figure_5_paper(df_byID,colours = dict_colours,markers = dict_markers,filenam
     ax.set_xlabel('Energy Return On Investment (Energy Delivered/Energy In)')
     ax.set_ylim(bottom=0)
     ax.set_ylabel('Emissions Intensity (kg CO\u2082e/kg H\u2082)')
-    plt.savefig(os.getcwd()+'\\Figures\\figure_5_new2.tiff', format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\Fig5.tiff', format='tiff',dpi=1000)
     plt.show()
     
 def SI_transmissionvector_plot(model):
@@ -576,7 +576,7 @@ def SI_transmissionvector_plot(model):
     ax[2,1].set_ylabel('')
     plt.subplots_adjust(wspace=0.5,hspace=1)
     plt.tight_layout()
-    plt.savefig(os.getcwd()+'\\Figures\\figure_8_S12.tiff', bbox_inches='tight',format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig8.tiff', bbox_inches='tight',format='tiff',dpi=1000)
     plt.show()
 
     #plot Energy Intensity
@@ -623,7 +623,7 @@ def SI_transmissionvector_plot(model):
     ax[2,1].set_ylabel('')
     plt.subplots_adjust(wspace=0.5,hspace=1)
     plt.tight_layout()
-    plt.savefig(os.getcwd()+'\\Figures\\figure_9_SI2.tiff', bbox_inches='tight',format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig9.tiff', bbox_inches='tight',format='tiff',dpi=1000)
     plt.show()
    
 def figures_offshoreinfra(model):
@@ -726,7 +726,7 @@ def figures_offshoreinfra(model):
     ax[1,1].set_ylabel('')
     plt.subplots_adjust(wspace=0.5,hspace=1)
     plt.tight_layout()
-    plt.savefig(os.getcwd()+'\\Figures\\figure_10_S1.tiff', bbox_inches='tight',format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig10.tiff', bbox_inches='tight',format='tiff',dpi=1000)
     #plt.show()
 
     #plot Energy Intensity for SI
@@ -768,7 +768,7 @@ def figures_offshoreinfra(model):
     ax[1,1].set_ylabel('')
     plt.subplots_adjust(wspace=0.5,hspace=1)
     plt.tight_layout()
-    plt.savefig(os.getcwd()+'\\Figures\\figure_11_S1_energy.tiff', bbox_inches='tight',format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig11.tiff', bbox_inches='tight',format='tiff',dpi=1000)
     #plt.show()
 
     #create single plot for paper
@@ -801,7 +801,7 @@ def figures_offshoreinfra(model):
     ax2.legend([handles[idx] for idx in orderlabels],[new_legend_labels[idx] for idx in orderlabels])
     ax.legend().remove()
     ax.set_ylabel('')
-    plt.savefig(os.getcwd()+'\\Figures\\figure_8_new_paper.tiff', bbox_inches='tight',format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\Fig8.tiff', bbox_inches='tight',format='tiff',dpi=1000)
     plt.show()
 
 def figure_offshorevector_paper(model):
@@ -904,49 +904,7 @@ def figure_offshorevector_paper(model):
     #ax[0,1].set_ylabel('')
     plt.subplots_adjust(wspace=0.5,hspace=1)
     plt.tight_layout()
-    plt.savefig(os.getcwd()+'\\Figures\\figure_8_new_paper.tiff', bbox_inches='tight',format='tiff',dpi=1000)
-    plt.show()
-
-    #plot Energy Intensity
-    fig, ax = plt.subplots(1, 2, figsize=(10, 4),layout='tight')
-    axes = [ax[0],ax[1]]
-    x=0
-    basevalue=[]
-    new_legend_labels = ['Tanker','Pipeline','Onshore']
-    for name,group in df_byID.groupby(['Esource','H2 Prod']):
-        title = titles[x]
-        order = group.groupby('T Infra ID')['Energy In'].mean().sort_values().index
-        sb.barplot(ax=axes[x],data = group,y='T Infra ID',x='Energy In',order=order,hue='Colour',errorbar=("pi", 95), capsize=.4,palette=dict_colours)
-        axes[x].set_title(title)
-        axes[x].set_yticklabels(axes[x].get_yticklabels(), wrap=True, rotation=0, ha='right',fontsize=9)
-        basevalue.append(group.loc[group['Location'] == 'Onshore']['Energy In'].mean())
-        x+=1
-
-    x=0
-    #set xlim to largest value so that all plots are on same scale (sharex doesn't allow the axis labels to be plotted)
-    axlim = axes[-1].get_xlim()
-    for ax1 in axes:
-        ax1.set_xlim(axlim)
-        ax1.tick_params(axis='x',labelbottom=True)
-        ax2 = ax1.twiny()
-        mn, mx = ax1.get_xlim()
-        ax2.set_xlim((mn-basevalue[x])/basevalue[x]*100,(mx-basevalue[x])/basevalue[x]*100)
-        ax2.xaxis.set_major_formatter(mtick.PercentFormatter())
-        ax2.set_xlabel('Comparison to Onshore Energy Intensity (%)')
-        ax1.set_xlabel('kWh/kg H\u2082')
-        ax2.xaxis.grid(alpha=0.5)
-        handles, labels = ax1.get_legend_handles_labels()
-        ax2.legend(handles, new_legend_labels)
-        ax1.legend().remove()
-        x+=1
-
-    #ax[0,0].tick_params(axis='x', bottom=False)
-    ax[1].tick_params(axis='both',left=False,labelleft=False)
-    #ax[0,1].set_ylabel('')
-
-    plt.subplots_adjust(wspace=0.5,hspace=1)
-    plt.tight_layout()
-    plt.savefig(os.getcwd()+'\\Figures\\figure_9_newpaper_energy.tiff', bbox_inches='tight',format='tiff',dpi=1000)
+    plt.savefig(os.getcwd()+'\\Figures\\Fig7.tiff', bbox_inches='tight',format='tiff',dpi=1000)
     plt.show()
 
 def ammonnia_SI(model,markers=dict_markers,colours=dict_colours):
@@ -1013,7 +971,7 @@ def ammonnia_SI(model,markers=dict_markers,colours=dict_colours):
     axsLeft[1,1].set_ylim(axsLeft[1,0].get_ylim())
     axsLeft[0,1].remove()
 
-    plt.savefig(os.getcwd()+'\\Figures\\figure_12_SI.tiff', format='tiff',dpi=1200)
+    plt.savefig(os.getcwd()+'\\Figures\\SI_Fig12.tiff', format='tiff',dpi=1200)
     plt.show()
 
 def sobolplots():
@@ -1101,7 +1059,23 @@ def convertresultstodataframe(results,ammonia=False,legendforplots = 'Legend', s
     return df_byID
 
 #run model, distance offshore (km), number of iterations, data inputs - dfs uses data input provided in data file
-basemodel = run(150, 1500,dfs,printvalues=True)
+#basemodel = run(150, 1500,dfs,printvalues=True)
+
+#load basemodel for plots
+basemodel=loadmcdata('Distance_150_Num_Iterations_1500_11092024.pkl')
+
+#convert results to dataframe
+df_byID = convertresultstodataframe(basemodel,ammonia=False)
+
+#plot results
+figure_5_paper(df_byID)
+figures_offshoreinfra(basemodel)
+figure_offshorevector_paper(basemodel)
+SI_transmissionvector_plot(basemodel)
+ammonnia_SI(basemodel)
+sobolplots()
+combinedplot(basemodel)
+SI_fig5_6(df_byID)
 
 
 
